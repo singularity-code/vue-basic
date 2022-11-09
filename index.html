@@ -11,9 +11,12 @@
 <body>
 <div id="shopping_list">
 	<h1>{{ header }}</h1>
+	<label>
+		<input type="text" v-model="header"/>
+	</label>
 </div>
 <script>
-  new Vue({
+  const vue = new Vue({
     el: '#shopping_list',
     data: {
       header: 'Vue is ready'
