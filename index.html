@@ -10,27 +10,37 @@
 </head>
 <body>
 <div id="shopping_list">
-	<h1>{{ header.toLocaleUpperCase() }}</h1>
-	<label>
-		<input type="text" v-model="newItem" @keyup.enter="saveItem" placeholder="Add an item"/>
-		<button v-on:click="saveItem">Save Item</button>
-	</label>
+	<div>
+		<h1>{{ header.toLocaleUpperCase() }}</h1>
+		<button v-if="state === 'default'" @click="changeState('edit')">Edit Mode</button>
+		<button v-else @click="changeState('default')">Cancel</button>
+	</div>
+	<div v-if="state === 'edit'">
+		<label>
+			<input type="text" v-model="newItem" @keyup.enter="saveItem" placeholder="Add an item"/>
+			<button v-on:click="saveItem">Save Item</button>
+		</label>
+	</div>
 	<ul>
 		<li v-for="item in items">
 			{{ item }}
 		</li>
 	</ul>
+	<p v-if="items.length === 0">
+		There is no item.
+	</p>
 </div>
 <script>
   const vue = new Vue({
     el: '#shopping_list',
     data: {
+      state: 'default',
       header: 'Vue shopping list app',
       newItem: '',
       items: [
-        'Play Station 5',
-        'X-Box One',
-        'Nintendo Switch'
+        // 'Play Station 5',
+        // 'X-Box One',
+        // 'Nintendo Switch'
       ],
     },
     methods: {
@@ -38,7 +48,11 @@
         if (this.newItem) {
           this.items.push(this.newItem);
           this.newItem = '';
-				}
+        }
+      },
+      changeState: function (newState) {
+        this.state = newState;
+        this.newItem = '';
       }
     }
   });
