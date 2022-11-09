@@ -18,7 +18,7 @@
 	<div v-if="state === 'edit'">
 		<label>
 			<input type="text" v-model="newItem" @keyup.enter="saveItem" placeholder="Add an item"/>
-			<button v-on:click="saveItem">Save Item</button>
+			<button v-on:click="saveItem" v-bind:disabled="newItem.length === 0">Save Item</button>
 		</label>
 	</div>
 	<ul>
