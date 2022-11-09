@@ -18,6 +18,7 @@
 	<div v-if="state === 'edit'">
 		<label>
 			<input type="text" v-model="newItem" @keyup.enter="saveItem" placeholder="Add an item"/>
+			<p>{{ characterCount }}/200</p>
 			<button v-on:click="saveItem" v-bind:disabled="newItem.length === 0">Save Item</button>
 		</label>
 	</div>
@@ -29,7 +30,7 @@
 	</ul>
 	<!--	Object syntax-->
 	<ul>
-		<li v-for="item in items"
+		<li v-for="item in reversedItems "
 				:class="{strikeout: item.purchased}"
 				@click="togglePurchased(item)"
 		>
@@ -65,6 +66,16 @@
         },
       ],
     },
+    // change presentation of existing data = use computed
+    computed: {
+      characterCount() {
+        return this.newItem.length;
+      },
+      reversedItems() {
+        return this.items.slice(0).reverse();
+      }
+    },
+    // change data = use method
     methods: {
       saveItem: function () {
         if (this.newItem) {
